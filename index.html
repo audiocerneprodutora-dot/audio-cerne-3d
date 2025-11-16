@@ -346,7 +346,7 @@
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6); 
             border: 2px solid #e0e0e0;
             border-top: none;
-            background: #3d3d3d;
+            background: #000000;
             border-radius: 0 0 20px 20px;
             overflow: hidden;
             box-sizing: border-box;
@@ -831,7 +831,6 @@
                 border-radius: 0 0 15px 15px;
             }
 
-            /* IMPORTANTE: 1 coluna para vídeos no mobile */
             .video-gallery {
                 grid-template-columns: 1fr !important;
             }
@@ -1045,7 +1044,7 @@
                     <p>Visualização interativa de produtos, arquitetura e cenários com tecnologia WebGL. Prototipagem virtual que reduz custos de produção em até 70%.</p>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">✏️</div>
+                    <div class="service-icon">✍️</div>
                     <h3>Roteiros Criativos</h3>
                     <p>Desenvolvimento de narrativas estratégicas que conectam com seu público e transmitem sua mensagem com impacto.</p>
                 </div>
@@ -1060,7 +1059,7 @@
                     <p>Elementos visuais dinâmicos e modernos que elevam a qualidade e profissionalismo da sua comunicação.</p>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">🏗️</div>
+                    <div class="service-icon">🗿</div>
                     <h3>Modelagem 3D & Ambientes</h3>
                     <p>Criação de personagens, cenários, produtos e arquitetura 3D para visualização, animação e realidade virtual.</p>
                 </div>
@@ -1222,10 +1221,17 @@
         💬
     </a>
 
-    <!-- Three.js Scripts - UNIFICADOS JSDELIVR para compatibilidade iOS -->
+    <!-- Three.js Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/RGBELoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
 
     <script>
         // Detecção de iOS/Safari
@@ -1237,11 +1243,11 @@
         // Video Gallery Function
         function playVideo(wrapper, videoId) {
             const iframe = wrapper.querySelector('iframe');
-            iframe.src = `https://drive.google.com/file/d/${videoId}/preview?autoplay=1`;
+            iframe.src = `https://drive.google.com/file/d/\${videoId}/preview?autoplay=1`;
             wrapper.classList.add('playing');
         }
 
-        // 3D Viewer Script com tratamento especial para iOS
+        // 3D Viewer Script com renderização profissional
         const container = document.getElementById('container');
         const statusMessage = document.getElementById('status-message');
         let currentModel = null;
@@ -1271,22 +1277,43 @@
         }
 
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x3d3d3d);
+        
+        // Fundo gradiente escuro (preto → cinza escuro)
+        const canvas = document.createElement('canvas');
+        canvas.width = 2;
+        canvas.height = 512;
+        const context = canvas.getContext('2d');
+        const gradient = context.createLinearGradient(0, 0, 0, 512);
+        gradient.addColorStop(0, '#000000');
+        gradient.addColorStop(0.5, '#0a0a0a');
+        gradient.addColorStop(1, '#1a1a1a');
+        context.fillStyle = gradient;
+        context.fillRect(0, 0, 2, 512);
+        const gradientTexture = new THREE.CanvasTexture(canvas);
+        scene.background = gradientTexture;
 
         const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 1000);
         camera.position.set(3, 3, 5);
 
-        // Configurações otimizadas para iOS
+        // Configurações otimizadas para iOS com tone mapping
         const renderer = new THREE.WebGLRenderer({ 
-            antialias: !isIOS, // Desativa antialiasing no iOS para performance
+            antialias: !isIOS,
             powerPreference: 'high-performance',
-            precision: isIOS ? 'mediump' : 'highp' // Menor precisão no iOS
+            precision: isIOS ? 'mediump' : 'highp'
         });
         
         let containerSize = getContainerSize();
         renderer.setSize(containerSize, containerSize);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, isIOS ? 2 : 3)); // Limita pixel ratio no iOS
-        renderer.shadowMap.enabled = !isIOS; // Desativa sombras no iOS
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, isIOS ? 2 : 3));
+        
+        // Sombras suaves tipo render
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        
+        // Tone mapping para qualidade fotorrealística
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.2;
+        renderer.outputEncoding = THREE.sRGBEncoding;
         
         try {
             container.appendChild(renderer.domElement);
@@ -1302,39 +1329,97 @@
         controls.minDistance = 1;
         controls.maxDistance = 15;
 
-        scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+        // Sistema de iluminação profissional (3-point lighting)
+        
+        // Luz ambiente suave
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+        scene.add(ambientLight);
 
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
-        directionalLight.position.set(5, 5, 5);
-        if (!isIOS) {
-            directionalLight.castShadow = true;
-        }
-        scene.add(directionalLight);
+        // KEY LIGHT - Luz principal (frontal-diagonal)
+        const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        keyLight.position.set(5, 8, 5);
+        keyLight.castShadow = true;
+        keyLight.shadow.mapSize.width = 2048;
+        keyLight.shadow.mapSize.height = 2048;
+        keyLight.shadow.camera.near = 0.5;
+        keyLight.shadow.camera.far = 50;
+        keyLight.shadow.camera.left = -10;
+        keyLight.shadow.camera.right = 10;
+        keyLight.shadow.camera.top = 10;
+        keyLight.shadow.camera.bottom = -10;
+        keyLight.shadow.bias = -0.0001;
+        keyLight.shadow.radius = 4; // Sombras mais suaves
+        scene.add(keyLight);
 
-        const fillLight = new THREE.DirectionalLight(0xffffff, 0.5);
-        fillLight.position.set(-5, 3, -5);
+        // FILL LIGHT - Luz de preenchimento (oposta, mais fraca)
+        const fillLight = new THREE.DirectionalLight(0xffffff, 0.4);
+        fillLight.position.set(-5, 3, -3);
         scene.add(fillLight);
 
-        const gridHelper = new THREE.GridHelper(20, 20, 0x888888, 0x444444);
-        gridHelper.position.y = 0;
-        scene.add(gridHelper);
+        // RIM LIGHT - Luz de contorno (traseira-superior)
+        const rimLight = new THREE.DirectionalLight(0xffffff, 0.6);
+        rimLight.position.set(-3, 5, -8);
+        scene.add(rimLight);
 
-        const axesHelper = new THREE.AxesHelper(5);
-        axesHelper.material.transparent = true;
-        axesHelper.material.opacity = 0.5;
-        scene.add(axesHelper);
+        // Luz pontual sutil para destaques
+        const spotLight = new THREE.SpotLight(0xffffff, 0.5);
+        spotLight.position.set(0, 10, 0);
+        spotLight.angle = Math.PI / 6;
+        spotLight.penumbra = 0.3;
+        spotLight.decay = 2;
+        spotLight.distance = 50;
+        scene.add(spotLight);
+
+        // Carregar HDRI para reflexos e iluminação ambiente realista
+        const pmremGenerator = new THREE.PMREMGenerator(renderer);
+        pmremGenerator.compileEquirectangularShader();
+
+        new THREE.RGBELoader()
+            .load('https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/studio_small_09_1k.hdr', function(texture) {
+                const envMap = pmremGenerator.fromEquirectangular(texture).texture;
+                scene.environment = envMap;
+                texture.dispose();
+                pmremGenerator.dispose();
+                console.log('✅ HDRI carregado com sucesso');
+            }, undefined, function(error) {
+                console.warn('⚠️ Erro ao carregar HDRI, usando iluminação padrão:', error);
+            });
 
         window.addEventListener('resize', () => {
             containerSize = getContainerSize();
             camera.aspect = 1;
             camera.updateProjectionMatrix();
             renderer.setSize(containerSize, containerSize);
+            if (composer) {
+                composer.setSize(containerSize, containerSize);
+            }
         });
+
+        // Post-processing com Bloom sutil
+        let composer;
+        if (!isIOS) { // Post-processing apenas para dispositivos com boa performance
+            composer = new THREE.EffectComposer(renderer);
+            const renderPass = new THREE.RenderPass(scene, camera);
+            composer.addPass(renderPass);
+
+            const bloomPass = new THREE.UnrealBloomPass(
+                new THREE.Vector2(containerSize, containerSize),
+                0.4,  // Strength - sutil
+                0.6,  // Radius
+                0.85  // Threshold
+            );
+            composer.addPass(bloomPass);
+        }
 
         function animate() {
             requestAnimationFrame(animate);
             controls.update();
-            renderer.render(scene, camera);
+            
+            if (composer && !isIOS) {
+                composer.render();
+            } else {
+                renderer.render(scene, camera);
+            }
         }
         animate();
 
