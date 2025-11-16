@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Áudio Cerne - Produtora de Vídeos e Simulações 3D</title>
+    <meta name="description" content="Vídeos animados, simulações 3D interativas e campanhas virais que fazem sua marca crescer. Produção audiovisual profissional.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #000000;
+            --secondary: #ffffff;
+            --accent: #e8e8e8;
+            --gold: #FFD700;
+            --text: #333333;
+            --text-light: #666666;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: var(--secondary);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Hero CTA 3D */
+        .hero-3d {
+            margin-top: 100px;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: var(--secondary);
+            text-align: center;
+        }
+
+        .hero-3d h1 {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 800;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero-3d-subtitle {
+            font-size: clamp(18px, 2vw, 24px);
+            color: rgba(255,255,255,0.9);
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 60px auto;
+            max-width: 1000px;
+        }
+
+        .benefit-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-5px);
+            border-color: var(--gold);
+        }
+
+        .benefit-icon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .benefit-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--gold);
+        }
+
+        .benefit-card p {
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .cta-info {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid var(--gold);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 40px auto 30px;
+            max-width: 600px;
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .hero-3d-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--gold) 0%, #FFA500 100%);
+            color: var(--primary);
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-3d-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(255, 215, 0, 0.6);
+        }
+
+        /* Visualizador 3D Section */
+        .visualizador-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        .section-header p {
+            font-size: 18px;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        #controls-bar {
+            padding: 20px;
+            background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            z-index: 10;
+            width: 100%;
+            max-width: 1024px;
+            text-align: center;
+            border-radius: 20px 20px 0 0;
+            border: 2px solid #e0e0e0;
+            border-bottom: none;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+
+        .viewer-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .viewer-logo-text {
+            font-size: 2em;
+            font-weight: 900;
+            letter-spacing: 3px;
+            color: #000000;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            font-family: 'Arial Black', 'Arial Bold', sans-serif;
+        }
+
+        .viewer-subtitle {
+            color: #666;
+            font-size: 0.85em;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        #upload-button {
+            display: inline-block;
+            padding: 14px 30px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #000000;
+            border: none;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #upload-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(255, 215, 0, 0.6);
+            background: linear-gradient(135deg, #FFA500 0%, #FFD700 100%);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .view-button, .action-button {
+            padding: 10px 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.85em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .view-button {
+            background: linear-gradient(135deg, #e0e0e0 0%, #c0c0c0 100%);
+            color: #000000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .view-button:hover {
+            background: linear-gradient(135deg, #d0d0d0 0%, #b0b0b0 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .action-button {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #000000;
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+        }
+
+        .action-button:hover {
+            background: linear-gradient(135deg, #FFA500 0%, #FFD700 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.5);
+        }
+
+        .action-button.delete {
+            background: linear-gradient(135deg, #4a4a4a 0%, #2d2d2d 100%);
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .action-button.delete:hover {
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        #status-message {
+            margin: 15px 0 0 0;
+            padding-top: 10px;
+            font-size: 0.9em;
+            color: #4a4a4a;
+            font-weight: 500;
+            min-height: 24px;
+        }
+
+        #container { 
+            width: 100%;
+            max-width: 1024px;
+            aspect-ratio: 1 / 1;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6); 
+            border: 2px solid #e0e0e0;
+            border-top: none;
+            background: #3d3d3d;
+            border-radius: 0 0 20px 20px;
+            overflow: hidden;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+
+        .info-text {
+            color: #666;
+            font-size: 0.85em;
+            margin-top: 8px;
+        }
+
+        /* Video Gallery Section */
+        .video-section {
+            padding: 100px 20px;
+            background: var(--secondary);
+        }
+
+        .video-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .video-item {
+            background: var(--secondary);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .video-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            border-color: var(--primary);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .video-item:hover .video-thumbnail {
+            transform: scale(1.05);
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: white;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .video-item:hover .play-button {
+            background: rgba(0, 0, 0, 0.95);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none;
+        }
+
+        .video-wrapper.playing iframe {
+            display: block;
+        }
+
+        .video-wrapper.playing .video-thumbnail,
+        .video-wrapper.playing .play-button {
+            display: none;
+        }
+
+        .video-caption {
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary);
+            background: var(--secondary);
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.8;
+            color: #ffffff;
+        }
+
+        .about .section-header h2 {
+            color: #ffffff;
+        }
+
+        .about .section-header p {
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* Services Grid */
+        .services {
+            padding: 100px 20px;
+            background: var(--secondary);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .service-card {
+            background: #f8f8f8;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .service-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 100px 20px;
+            background: #f5f5f5;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .portfolio-item {
+            background: var(--secondary);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .portfolio-item h3 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .portfolio-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--secondary);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .portfolio-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 20px;
+            background: var(--secondary);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .testimonial-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #d0d0d0;
+        }
+
+        .testimonial-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text);
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .testimonial-role {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* Social Section */
+        .social {
+            padding: 100px 20px;
+            background: #f5f5f5;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--primary);
+            color: var(--secondary);
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 20px;
+            background: var(--primary);
+            color: var(--secondary);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(32px, 4vw, 48px);
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn-primary {
+            background: var(--secondary);
+            color: var(--primary);
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255,255,255,0.3);
+        }
+
+        .cta-btn-secondary {
+            background: transparent;
+            color: var(--secondary);
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            border: 2px solid var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn-secondary:hover {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: var(--secondary);
+            padding: 60px 20px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 5px 25px rgba(37, 211, 102, 0.5);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 35px rgba(37, 211, 102, 0.7);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 5px 25px rgba(37, 211, 102, 0.5);
+            }
+            50% {
+                box-shadow: 0 5px 35px rgba(37, 211, 102, 0.8);
+            }
+        }
+
+        @keyframes loading {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .loading {
+            animation: loading 1.5s ease-in-out infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-3d {
+                padding: 60px 20px;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #controls-bar {
+                padding: 15px 10px;
+                border-radius: 15px 15px 0 0;
+            }
+
+            .viewer-logo-text {
+                font-size: 1.5em;
+                letter-spacing: 2px;
+            }
+
+            .viewer-subtitle {
+                font-size: 0.75em;
+            }
+
+            #upload-button {
+                padding: 12px 24px;
+                font-size: 0.9em;
+            }
+
+            .button-group {
+                gap: 6px;
+                margin-top: 12px;
+            }
+
+            .view-button, .action-button {
+                padding: 8px 12px;
+                font-size: 0.75em;
+            }
+
+            #container {
+                border-radius: 0 0 15px 15px;
+            }
+
+            /* IMPORTANTE: 1 coluna para vídeos no mobile */
+            .video-gallery {
+                grid-template-columns: 1fr !important;
+            }
+
+            .video-wrapper {
+                height: 250px;
+            }
+
+            .logo {
+                width: 50px;
+                height: 50px;
+            }
+
+            .logo-text {
+                font-size: 20px;
+            }
+
+            .nav-cta {
+                padding: 10px 20px;
+                font-size: 12px;
+            }
+
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo-container">
+                <span class="logo-text">ÁUDIO CERNE</span>
+            </div>
+            <a href="https://wa.me/5531972385529" class="nav-cta">Solicitar Orçamento</a>
+        </nav>
+    </header>
+
+    <!-- Hero 3D CTA Section -->
+    <section class="hero-3d">
+        <div class="container">
+            <h1>Visualização 3D Interativa em Tempo Real</h1>
+            <p class="hero-3d-subtitle">Transforme a forma como você apresenta seus projetos</p>
+            
+            <p style="max-width: 800px; margin: 0 auto 50px; font-size: 17px; line-height: 1.7;">
+                Imagine seus clientes explorando cada detalhe do seu produto, cenário ou projeto arquitetônico diretamente no navegador - sem instalações, sem complicações. Nossa tecnologia de visualização 3D em tempo real permite que você:
+            </p>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">✦</div>
+                    <h3>Apresente com Impacto</h3>
+                    <p>Modelos 3D interativos que seus clientes podem girar, aproximar e explorar em 360°</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">✦</div>
+                    <h3>Valide Antes de Produzir</h3>
+                    <p>Simule ambientes, produtos e cenários com precisão fotorrealística antes de investir na produção física</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">✦</div>
+                    <h3>Feche Negócios Mais Rápido</h3>
+                    <p>Elimine dúvidas e objeções mostrando exatamente como ficará o resultado final</p>
+                </div>
+            </div>
+
+            <div class="cta-info">
+                📦 Solicite os modelos e use nosso visualizador | Visualização instantânea | Sem necessidade de plugins
+            </div>
+
+            <a href="https://wa.me/5531972385529" class="hero-3d-btn">
+                <span>🚀</span>
+                Solicite um Teste Gratuito
+            </a>
+        </div>
+    </section>
+
+    <!-- Visualizador 3D Section -->
+    <section class="visualizador-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Visualizador 3D Profissional</h2>
+                <p>Carregue seus modelos .GLB ou .GLTF e explore em tempo real</p>
+            </div>
+
+            <div id="controls-bar">
+                <div class="viewer-logo">
+                    <div class="viewer-logo-text">AUDIO CERNE</div>
+                    <span class="viewer-subtitle">Visualizador 3D</span>
+                </div>
+                <label for="file-upload" id="upload-button">
+                    Carregar Modelo
+                </label>
+                <input type="file" id="file-upload" accept=".glb, .gltf" style="display: none;">
+                
+                <div class="button-group">
+                    <button class="action-button" id="center-button">Centralizar</button>
+                    <button class="view-button" id="view-top">Topo</button>
+                    <button class="view-button" id="view-left">Esquerdo</button>
+                    <button class="view-button" id="view-right">Direito</button>
+                    <button class="view-button" id="view-perspective">Perspectiva</button>
+                    <button class="action-button delete" id="delete-button">Deletar Modelo</button>
+                </div>
+                
+                <p id="status-message">Aguardando upload do modelo 3D...</p>
+                <p class="info-text">Formatos aceitos: .GLB e .GLTF</p>
+            </div>
+
+            <div id="container"></div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nossos Trabalhos em Vídeo</h2>
+                <p>Confira alguns dos projetos audiovisuais que criamos para nossos clientes</p>
+            </div>
+            <div class="video-gallery">
+                <div class="video-item">
+                    <div class="video-wrapper" onclick="playVideo(this, '1JhPO8-kMO8wXv6uwkNqcGDN3woK1MaT8')">
+                        <img src="https://drive.google.com/uc?export=view&id=116DrkmyRSuBIahoC2RdXBZ7bO3-a5dgB" alt="Vídeo 01" class="video-thumbnail">
+                        <div class="play-button">▶</div>
+                        <iframe src="" allow="autoplay"></iframe>
+                    </div>
+                    <div class="video-caption">Vídeo 01</div>
+                </div>
+                <div class="video-item">
+                    <div class="video-wrapper" onclick="playVideo(this, '10tc2zjsl0OTP1aI7jtdS5jUU9BAXLgeh')">
+                        <img src="https://drive.google.com/uc?export=view&id=116DrkmyRSuBIahoC2RdXBZ7bO3-a5dgB" alt="Vídeo 02" class="video-thumbnail">
+                        <div class="play-button">▶</div>
+                        <iframe src="" allow="autoplay"></iframe>
+                    </div>
+                    <div class="video-caption">Vídeo 02</div>
+                </div>
+                <div class="video-item">
+                    <div class="video-wrapper" onclick="playVideo(this, '1h0n9HnGQxTzj-yA-tzJE37jP3MXQKFxp')">
+                        <img src="https://drive.google.com/uc?export=view&id=116DrkmyRSuBIahoC2RdXBZ7bO3-a5dgB" alt="Vídeo 03" class="video-thumbnail">
+                        <div class="play-button">▶</div>
+                        <iframe src="" allow="autoplay"></iframe>
+                    </div>
+                    <div class="video-caption">Vídeo 03</div>
+                </div>
+                <div class="video-item">
+                    <div class="video-wrapper" onclick="playVideo(this, '19tk-2LON-Fy-YQ92XLNF8dxQf-Ull1qw')">
+                        <img src="https://drive.google.com/uc?export=view&id=116DrkmyRSuBIahoC2RdXBZ7bO3-a5dgB" alt="Vídeo 04" class="video-thumbnail">
+                        <div class="play-button">▶</div>
+                        <iframe src="" allow="autoplay"></iframe>
+                    </div>
+                    <div class="video-caption">Vídeo 04</div>
+                </div>
+                <div class="video-item">
+                    <div class="video-wrapper" onclick="playVideo(this, '1TV-FPI0r41MLSa_o6rPymIz4YDGeACVP')">
+                        <img src="https://drive.google.com/uc?export=view&id=116DrkmyRSuBIahoC2RdXBZ7bO3-a5dgB" alt="Vídeo 05" class="video-thumbnail">
+                        <div class="play-button">▶</div>
+                        <iframe src="" allow="autoplay"></iframe>
+                    </div>
+                    <div class="video-caption">Vídeo 05</div>
+                </div>
+                <div class="video-item">
+                    <div class="video-wrapper" onclick="playVideo(this, '1Hc0GkYHGgwXm4INFNvXbdotFo7lidV-c')">
+                        <img src="https://drive.google.com/uc?export=view&id=116DrkmyRSuBIahoC2RdXBZ7bO3-a5dgB" alt="Vídeo 06" class="video-thumbnail">
+                        <div class="play-button">▶</div>
+                        <iframe src="" allow="autoplay"></iframe>
+                    </div>
+                    <div class="video-caption">Vídeo 06</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>Sobre a Áudio Cerne</h2>
+                <p style="font-size: 20px; margin-top: 15px;">Criatividade e Tecnologia que geram resultados</p>
+            </div>
+            <div class="about-content">
+                <p>Somos uma produtora especializada em criar vídeos e simulações 3D que não apenas chamam atenção, mas convertem. Com expertise em animações, motion graphics, modelagem 3D e campanhas virais, transformamos ideias em conteúdo audiovisual de alto impacto.</p>
+                <br>
+                <p><strong>Com mais de 18 anos de experiência em visualização 3D</strong>, oferecemos simulações profissionais para arquitetura, design de produtos, cenografia e prototipagem virtual. Utilizamos tecnologia WebGL de última geração para criar experiências interativas que seus clientes podem explorar em tempo real.</p>
+                <br>
+                <p>Nossa missão é fazer sua marca crescer através de storytelling envolvente, produção técnica impecável e estratégias criativas que geram engajamento real nas redes sociais e resultados mensuráveis para seu negócio.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nossos Serviços</h2>
+                <p>Soluções completas em produção audiovisual e simulação 3D</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🎬</div>
+                    <h3>Vídeos Animados</h3>
+                    <p>Animações 2D e 3D de alta qualidade que explicam seu produto ou serviço de forma envolvente e memorável.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎯</div>
+                    <h3>Simulação 3D Profissional</h3>
+                    <p>Visualização interativa de produtos, arquitetura e cenários com tecnologia WebGL. Prototipagem virtual que reduz custos de produção em até 70%.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">✏️</div>
+                    <h3>Roteiros Criativos</h3>
+                    <p>Desenvolvimento de narrativas estratégicas que conectam com seu público e transmitem sua mensagem com impacto.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🚀</div>
+                    <h3>Campanhas Virais</h3>
+                    <p>Conteúdo otimizado para redes sociais com potencial de viralização e alto engajamento orgânico.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3>Motion Graphics</h3>
+                    <p>Elementos visuais dinâmicos e modernos que elevam a qualidade e profissionalismo da sua comunicação.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏗️</div>
+                    <h3>Modelagem 3D & Ambientes</h3>
+                    <p>Criação de personagens, cenários, produtos e arquitetura 3D para visualização, animação e realidade virtual.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎥</div>
+                    <h3>Edição & Pós-Produção</h3>
+                    <p>Finalização técnica impecável com correção de cor, tratamento de áudio e efeitos especiais de cinema.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3>Conteúdo para Redes Sociais</h3>
+                    <p>Vídeos otimizados para Instagram, TikTok, YouTube e outras plataformas, prontos para gerar resultados.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎮</div>
+                    <h3>Desenvolvimento para Jogos</h3>
+                    <p>Assets 3D, ambientes e personagens para games desenvolvidos com Unreal Engine 4 e outras engines modernas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nosso Portfólio</h2>
+                <p>Conheça nossos trabalhos e cases de sucesso</p>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="service-icon">🎨</div>
+                    <h3>Portfólio Criativo</h3>
+                    <p>Explore nossa coleção de projetos criativos e campanhas que fizeram diferença</p>
+                    <a href="https://drive.google.com/file/d/1rI94mZ3KIm-R1A4c2Y3juFsV55m17-b2/view?usp=sharing" target="_blank" class="portfolio-btn">Ver Portfólio</a>
+                </div>
+                <div class="portfolio-item">
+                    <div class="service-icon">🤖</div>
+                    <h3>Portfólio AI</h3>
+                    <p>Projetos inovadores utilizando inteligência artificial na produção audiovisual</p>
+                    <a href="https://drive.google.com/file/d/1fBIELLxE5xx_gazq6drA2qaO9PfyY3Vg/view?usp=sharing" target="_blank" class="portfolio-btn">Ver Portfólio</a>
+                </div>
+                <div class="portfolio-item">
+                    <div class="service-icon">⭐</div>
+                    <h3>Mais Trabalhos</h3>
+                    <p>Descubra outros projetos e cases de sucesso da Áudio Cerne</p>
+                    <a href="https://drive.google.com/file/d/1muukSJZXmhpDvmfIvJFFQj2csi3FYhgw/view?usp=sharing" target="_blank" class="portfolio-btn">Ver Portfólio</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>O Que Dizem Nossos Clientes</h2>
+                <p>Resultados reais de quem confiou na Áudio Cerne</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"O vídeo institucional que a Áudio Cerne produziu para nossa empresa superou todas as expectativas. Em 3 meses, nosso site teve 180% mais visitas e fechamos 25% mais negócios. A qualidade é cinema!"</p>
+                    <p class="testimonial-author">Ricardo Mendes</p>
+                    <p class="testimonial-role">Diretor de Marketing - TechSolutions</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Contratei a Áudio Cerne para fazer vídeos promocionais para minhas redes sociais. O resultado? Meu Instagram cresceu 400% em seguidores e minhas vendas triplicaram. Investimento que se paga sozinho!"</p>
+                    <p class="testimonial-author">Juliana Costa</p>
+                    <p class="testimonial-role">Proprietária - Boutique Essence</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"A visualização 3D do nosso projeto arquitetônico foi um divisor de águas. Conseguimos aprovar o projeto com o cliente em uma única reunião. A tecnologia eliminou todas as dúvidas e acelerou o fechamento do contrato!"</p>
+                    <p class="testimonial-author">Arquiteto Paulo Santos</p>
+                    <p class="testimonial-role">Santos & Associados Arquitetura</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Queria profissionalizar meu canal no YouTube e a equipe foi sensacional. Criaram uma identidade visual incrível, animações de intro e outros que deixaram meu conteúdo no mesmo nível dos grandes canais. Meus inscritos aumentaram 300%!"</p>
+                    <p class="testimonial-author">Pedro Almeida</p>
+                    <p class="testimonial-role">YouTuber - Canal TechReview Brasil</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Section -->
+    <section class="social">
+        <div class="container">
+            <div class="section-header">
+                <h2>Veja Nossos Trabalhos</h2>
+                <p>Siga-nos nas redes sociais e confira nosso portfólio em ação</p>
+            </div>
+            <div class="social-links">
+                <a href="https://instagram.com/mercantemercador" target="_blank" class="social-btn">
+                    📸 @mercantemercador
+                </a>
+                <a href="https://instagram.com/audio_cerne" target="_blank" class="social-btn">
+                    🎬 @audio_cerne
+                </a>
+            </div>
+            <p style="margin-top: 30px; color: var(--text-light);">
+                <em>*Solicite para seguir @audio_cerne e veja nossos vídeos exclusivos</em>
+            </p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Pronto para fazer sua marca decolar?</h2>
+            <p>Entre em contato agora e solicite seu orçamento personalizado</p>
+            <div class="cta-buttons">
+                <a href="https://wa.me/5531972385529" class="cta-btn-primary">
+                    💬 WhatsApp (MG)
+                </a>
+                <a href="https://wa.me/556199108285" class="cta-btn-primary">
+                    💬 WhatsApp (DF)
+                </a>
+                <a href="mailto:audiocerneprodutora@gmail.com" class="cta-btn-secondary">
+                    ✉️ Enviar E-mail
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Áudio Cerne</h3>
+                <p>Produtora de vídeos profissionais e simulações 3D especializada em animações, roteiros criativos, visualização interativa e campanhas virais.</p>
+                <p style="margin-top: 15px;"><strong>Tato Lima</strong> - Generalista 3D com +18 anos de experiência</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <p>📧 audiocerneprodutora@gmail.com</p>
+                <p>📱 +55 31 97238-5529 (MG)</p>
+                <p>📱 +55 61 99108-2851 (DF)</p>
+            </div>
+            <div class="footer-section">
+                <h3>Redes Sociais</h3>
+                <a href="https://instagram.com/mercantemercador" target="_blank">Instagram @mercantemercador</a>
+                <a href="https://instagram.com/audio_cerne" target="_blank">Instagram @audio_cerne</a>
+                <a href="https://venonprodutora.com" target="_blank">Venon Produtora</a>
+            </div>
+            <div class="footer-section">
+                <h3>Portfólio</h3>
+                <a href="https://drive.google.com/file/d/1rI94mZ3KIm-R1A4c2Y3juFsV55m17-b2/view?usp=sharing" target="_blank">Portfólio Criativo</a>
+                <a href="https://drive.google.com/file/d/1fBIELLxE5xx_gazq6drA2qaO9PfyY3Vg/view?usp=sharing" target="_blank">Portfólio AI</a>
+                <a href="https://drive.google.com/file/d/1muukSJZXmhpDvmfIvJFFQj2csi3FYhgw/view?usp=sharing" target="_blank">Mais Trabalhos</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Áudio Cerne. Todos os direitos reservados. | Responsável: Tato Lima</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/5531972385529" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+        💬
+    </a>
+
+    <!-- Three.js Scripts - UNIFICADOS JSDELIVR para compatibilidade iOS -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+    <script>
+        // Detecção de iOS/Safari
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        
+        console.log('Device Detection:', { isIOS, isSafari, userAgent: navigator.userAgent });
+
+        // Video Gallery Function
+        function playVideo(wrapper, videoId) {
+            const iframe = wrapper.querySelector('iframe');
+            iframe.src = `https://drive.google.com/file/d/${videoId}/preview?autoplay=1`;
+            wrapper.classList.add('playing');
+        }
+
+        // 3D Viewer Script com tratamento especial para iOS
+        const container = document.getElementById('container');
+        const statusMessage = document.getElementById('status-message');
+        let currentModel = null;
+        let modelCenter = new THREE.Vector3();
+        let modelSize = new THREE.Vector3();
+
+        function getContainerSize() {
+            const rect = container.getBoundingClientRect();
+            return Math.min(rect.width, rect.height);
+        }
+
+        // Verificar suporte WebGL
+        function checkWebGLSupport() {
+            try {
+                const canvas = document.createElement('canvas');
+                const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                return !!gl;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        if (!checkWebGLSupport()) {
+            statusMessage.innerHTML = '⚠️ Seu dispositivo não suporta WebGL. <a href="https://wa.me/5531972385529" style="color: #FFD700; text-decoration: underline;">Solicite uma demonstração pelo WhatsApp</a>';
+            statusMessage.style.color = '#ff9800';
+            console.error('WebGL não suportado');
+        }
+
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x3d3d3d);
+
+        const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 1000);
+        camera.position.set(3, 3, 5);
+
+        // Configurações otimizadas para iOS
+        const renderer = new THREE.WebGLRenderer({ 
+            antialias: !isIOS, // Desativa antialiasing no iOS para performance
+            powerPreference: 'high-performance',
+            precision: isIOS ? 'mediump' : 'highp' // Menor precisão no iOS
+        });
+        
+        let containerSize = getContainerSize();
+        renderer.setSize(containerSize, containerSize);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, isIOS ? 2 : 3)); // Limita pixel ratio no iOS
+        renderer.shadowMap.enabled = !isIOS; // Desativa sombras no iOS
+        
+        try {
+            container.appendChild(renderer.domElement);
+        } catch (e) {
+            console.error('Erro ao adicionar canvas:', e);
+            statusMessage.innerHTML = '⚠️ Erro ao inicializar visualizador. <a href="https://wa.me/5531972385529" style="color: #FFD700; text-decoration: underline;">Fale conosco no WhatsApp</a>';
+        }
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.screenSpacePanning = true;
+        controls.minDistance = 1;
+        controls.maxDistance = 15;
+
+        scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        directionalLight.position.set(5, 5, 5);
+        if (!isIOS) {
+            directionalLight.castShadow = true;
+        }
+        scene.add(directionalLight);
+
+        const fillLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        fillLight.position.set(-5, 3, -5);
+        scene.add(fillLight);
+
+        const gridHelper = new THREE.GridHelper(20, 20, 0x888888, 0x444444);
+        gridHelper.position.y = 0;
+        scene.add(gridHelper);
+
+        const axesHelper = new THREE.AxesHelper(5);
+        axesHelper.material.transparent = true;
+        axesHelper.material.opacity = 0.5;
+        scene.add(axesHelper);
+
+        window.addEventListener('resize', () => {
+            containerSize = getContainerSize();
+            camera.aspect = 1;
+            camera.updateProjectionMatrix();
+            renderer.setSize(containerSize, containerSize);
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        function centerCamera() {
+            if (!currentModel) {
+                statusMessage.textContent = '⚠️ Nenhum modelo carregado para centralizar!';
+                statusMessage.style.color = '#ff9800';
+                setTimeout(() => {
+                    statusMessage.style.color = '#4a4a4a';
+                    statusMessage.textContent = 'Aguardando upload do modelo 3D...';
+                }, 2000);
+                return;
+            }
+
+            const maxDim = Math.max(modelSize.x, modelSize.y, modelSize.z);
+            const fitFactor = 1.8;
+            const distance = maxDim / (2 * Math.tan(camera.fov * (Math.PI / 360))) * fitFactor;
+
+            camera.position.copy(modelCenter);
+            camera.position.z += distance;
+            camera.position.y += maxDim * 0.2;
+
+            controls.target.copy(modelCenter);
+            controls.target.y += modelSize.y * 0.4;
+            controls.update();
+        }
+
+        function changeView(viewType) {
+            if (!currentModel) {
+                statusMessage.textContent = '⚠️ Nenhum modelo carregado!';
+                statusMessage.style.color = '#ff9800';
+                setTimeout(() => {
+                    statusMessage.style.color = '#4a4a4a';
+                    statusMessage.textContent = 'Aguardando upload do modelo 3D...';
+                }, 2000);
+                return;
+            }
+
+            const maxDim = Math.max(modelSize.x, modelSize.y, modelSize.z);
+            const distance = maxDim * 2;
+
+            controls.target.copy(modelCenter);
+
+            switch(viewType) {
+                case 'top':
+                    camera.position.set(modelCenter.x, modelCenter.y + distance, modelCenter.z);
+                    break;
+                case 'left':
+                    camera.position.set(modelCenter.x - distance, modelCenter.y, modelCenter.z);
+                    break;
+                case 'right':
+                    camera.position.set(modelCenter.x + distance, modelCenter.y, modelCenter.z);
+                    break;
+                case 'perspective':
+                    centerCamera();
+                    break;
+            }
+
+            controls.update();
+        }
+
+        function deleteModel() {
+            if (!currentModel) {
+                statusMessage.textContent = '⚠️ Nenhum modelo para deletar!';
+                statusMessage.style.color = '#ff9800';
+                setTimeout(() => {
+                    statusMessage.style.color = '#4a4a4a';
+                    statusMessage.textContent = 'Aguardando upload do modelo 3D...';
+                }, 2000);
+                return;
+            }
+
+            scene.remove(currentModel);
+            currentModel.traverse(child => {
+                if (child.isMesh) {
+                    child.geometry.dispose();
+                    child.material.dispose();
+                }
+            });
+            currentModel = null;
+
+            camera.position.set(3, 3, 5);
+            controls.target.set(0, 0, 0);
+            controls.update();
+
+            statusMessage.textContent = '🗑️ Modelo deletado. Aguardando novo upload...';
+            statusMessage.style.color = '#4a4a4a';
+        }
+
+        document.getElementById('center-button').addEventListener('click', centerCamera);
+        document.getElementById('view-top').addEventListener('click', () => changeView('top'));
+        document.getElementById('view-left').addEventListener('click', () => changeView('left'));
+        document.getElementById('view-right').addEventListener('click', () => changeView('right'));
+        document.getElementById('view-perspective').addEventListener('click', () => changeView('perspective'));
+        document.getElementById('delete-button').addEventListener('click', deleteModel);
+
+        const fileInput = document.getElementById('file-upload');
+        const loader = new THREE.GLTFLoader();
+
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // Verificar tamanho do arquivo (especialmente importante para iOS)
+            const fileSizeMB = file.size / (1024 * 1024);
+            console.log('Tamanho do arquivo:', fileSizeMB.toFixed(2) + 'MB');
+
+            if (isIOS && fileSizeMB > 50) {
+                statusMessage.innerHTML = '⚠️ Arquivo muito grande para iOS (max 50MB). <a href="https://wa.me/5531972385529" style="color: #FFD700; text-decoration: underline;">Solicite ajuda no WhatsApp</a>';
+                statusMessage.style.color = '#ff9800';
+                return;
+            }
+
+            statusMessage.textContent = `⏳ Carregando ${file.name}...`;
+            statusMessage.classList.add('loading');
+
+            const reader = new FileReader();
+
+            reader.onerror = function(e) {
+                console.error('Erro no FileReader:', e);
+                statusMessage.innerHTML = '❌ Erro ao ler arquivo. <a href="https://wa.me/5531972385529" style="color: #FFD700; text-decoration: underline;">Fale conosco</a>';
+                statusMessage.classList.remove('loading');
+                statusMessage.style.color = '#d32f2f';
+            };
+
+            reader.onload = (e) => {
+                if (currentModel) {
+                    scene.remove(currentModel);
+                    currentModel.traverse(child => {
+                        if (child.isMesh) {
+                            child.geometry.dispose();
+                            child.material.dispose();
+                        }
+                    });
+                    currentModel = null;
+                }
+
+                try {
+                    loader.parse(
+                        e.target.result,
+                        '',
+                        function (gltf) {
+                            const model = gltf.scene;
+                            currentModel = model;
+
+                            const box = new THREE.Box3().setFromObject(model);
+                            modelCenter = box.getCenter(new THREE.Vector3());
+                            modelSize = box.getSize(new THREE.Vector3());
+
+                            const minY = box.min.y;
+                            model.position.sub(modelCenter);
+                            model.position.y -= minY;
+
+                            const newBox = new THREE.Box3().setFromObject(model);
+                            modelCenter = newBox.getCenter(new THREE.Vector3());
+                            modelSize = newBox.getSize(new THREE.Vector3());
+
+                            scene.add(model);
+
+                            const maxDim = Math.max(modelSize.x, modelSize.y, modelSize.z);
+                            const fitFactor = 1.8;
+                            const distance = maxDim / (2 * Math.tan(camera.fov * (Math.PI / 360))) * fitFactor;
+
+                            camera.position.copy(modelCenter);
+                            camera.position.z += distance;
+                            camera.position.y += maxDim * 0.2;
+
+                            controls.target.copy(modelCenter);
+                            controls.target.y += modelSize.y * 0.4;
+                            controls.update();
+
+                            statusMessage.classList.remove('loading');
+                            statusMessage.textContent = `✅ ${file.name} carregado com sucesso!`;
+                            statusMessage.style.color = '#4a4a4a';
+                            
+                            console.log('Modelo carregado com sucesso no iOS:', isIOS);
+                        },
+                        function (error) {
+                            console.error('Erro ao processar o modelo:', error);
+                            statusMessage.classList.remove('loading');
+                            
+                            if (isIOS || isSafari) {
+                                statusMessage.innerHTML = `❌ Erro ao carregar no ${isIOS ? 'iPhone' : 'Safari'}. <br><small>Tente arquivo menor ou <a href="https://wa.me/5531972385529" style="color: #FFD700; text-decoration: underline;">solicite demonstração</a></small>`;
+                            } else {
+                                statusMessage.textContent = `❌ Erro ao carregar ${file.name}`;
+                            }
+                            
+                            statusMessage.style.color = '#d32f2f';
+                            setTimeout(() => {
+                                statusMessage.style.color = '#4a4a4a';
+                                statusMessage.textContent = 'Aguardando upload do modelo 3D...';
+                            }, 5000);
+                        }
+                    );
+                } catch (error) {
+                    console.error('Erro crítico ao processar:', error);
+                    statusMessage.innerHTML = '❌ Erro crítico. <a href="https://wa.me/5531972385529" style="color: #FFD700; text-decoration: underline;">Entre em contato</a>';
+                    statusMessage.classList.remove('loading');
+                    statusMessage.style.color = '#d32f2f';
+                }
+            };
+
+            reader.readAsArrayBuffer(file);
+        });
+    </script>
+</body>
+</html>
